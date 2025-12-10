@@ -1,0 +1,4 @@
+(executable
+ (public_name dsa-neetcode-150-ocaml)
+ (name main)
+ (libraries dsa_neetcode_150_ocaml))
