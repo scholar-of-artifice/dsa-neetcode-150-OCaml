@@ -30,7 +30,61 @@ end
 
 (*--- Tests ---*)
 
-let%expect_test "contains_duplicate -> sorting" =
-    let result = Sorting.solution [1; 2; 3; 1] in
-    Printf.printf "%b" result;
-    [%expect {|true|}]
+let%expect_test "contains_duplicate -> sorting -> true" =
+    (*define a helper that runs one case at a time*)
+    let check_case input = 
+        let result = Sorting.solution input in
+        print_s [%message "Testing" (input : int list) (result : bool)]
+    in
+    (*GIVEN these test cases*)
+    let test_cases = [
+        [1; 1];
+        [1; 2; 1];
+        [1; 2; 2];
+        [1; 2; 3; 1];
+        [1; 2; 3; 2];
+        [1; 2; 3; 3];
+    ] in
+
+    (*WHEN the function is called*)
+    List.iter test_cases ~f:check_case;
+    
+    (*THEN it returns true*)
+    [%expect {|
+      (Testing (input (1 1)) (result true))
+      (Testing (input (1 2 1)) (result true))
+      (Testing (input (1 2 2)) (result true))
+      (Testing (input (1 2 3 1)) (result true))
+      (Testing (input (1 2 3 2)) (result true))
+      (Testing (input (1 2 3 3)) (result true))
+      |}]
+
+
+let%expect_test "contains_duplicate -> sorting -> false" =
+    (*define a helper that runs one case at a time*)
+    let check_case input = 
+        let result = Sorting.solution input in
+        print_s [%message "Testing" (input : int list) (result : bool)]
+    in
+    (*GIVEN these test cases*)
+    let test_cases = [
+        [1; 2];
+        [1; 2; 3];
+        [3; 2; 1];
+        [1; 2; 3; 4];
+        [1; 4; 3; 2];
+        [1; 2; 4; 3];
+    ] in
+
+    (*WHEN the function is called*)
+    List.iter test_cases ~f:check_case;
+    
+    (*THEN it returns false*)
+    [%expect {|
+      (Testing (input (1 2)) (result false))
+      (Testing (input (1 2 3)) (result false))
+      (Testing (input (3 2 1)) (result false))
+      (Testing (input (1 2 3 4)) (result false))
+      (Testing (input (1 4 3 2)) (result false))
+      (Testing (input (1 2 4 3)) (result false))
+      |}]
