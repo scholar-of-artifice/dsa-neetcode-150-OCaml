@@ -1,5 +1,5 @@
 (library
  (name dsa_neetcode_150_ocaml)
+ (libraries base stdio core)
  (inline_tests)
- (preprocess (pps ppx_expect))
- (libraries core))
+ (preprocess (pps ppx_jane)))
